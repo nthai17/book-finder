@@ -80,6 +80,7 @@
     <script>
         const searchBtn = document.querySelector('#search-btn')
         const booksParent = document.querySelector('#book-list')
+        const search = document.querySelector('#search')
         function renderBooks(data){
             const booksList = data.items
             const booksElement = booksList.map((book)=>{
@@ -95,7 +96,7 @@
             booksParent.innerHTML = booksElement.join('')
         }
         function searchBook(){
-            const searchValue = document.querySelector('#search').value
+            const searchValue = search.value
             if(searchValue){
                 const booksApi = 'https://www.googleapis.com/books/v1/volumes?q'
                 booksParent.innerHTML = "loading..."
@@ -110,7 +111,11 @@
         searchBtn.addEventListener('click', function(){
             searchBook()
         })
-        
+        search.addEventListener('keydown', function(e){
+            if(e.which === 13){
+                searchBtn.click()
+            }
+        })
         
     </script>
 </body>
