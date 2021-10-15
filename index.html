@@ -123,11 +123,44 @@
             searchBook()
         })
         search.addEventListener('keydown', function(e){
-            if(e.which === 13){
+            if(e.code === 'Enter'){
                 searchBtn.click()
                 search.blur()
             }
         })
+        
+
+        // make my toFix()
+        Number.prototype.toFix2 = function(num){
+            let input = this
+            let inputToString = input.toString()
+            let dotIndex = inputToString.indexOf('.')
+            let nextLastNumber = Number(inputToString[dotIndex + num + 1])
+            let lastNumber = Number(inputToString[dotIndex + num])
+            if(nextLastNumber >= 5){
+                lastNumber = lastNumber + 1
+            } else if(nextLastNumber === 4){
+                let i = inputToString.length - 1
+                let fake = Number(inputToString[i])
+                do {
+                    console.log(fake);
+                    if (fake >= 5) {
+                        fake = Number(inputToString[i-1]) + 1
+                    } else{
+                        fake = Number(inputToString[i-1])
+                    }
+                    i--
+                    console.log(fake, i);
+                } while (i > dotIndex + num)
+                lastNumber = fake
+            }
+            console.log(lastNumber);
+            console.log(inputToString.substring(0, dotIndex + num));
+            let outputString = inputToString.substring(0, dotIndex + num).concat(lastNumber.toString())
+            return Number(outputString)
+        }
+        let a = 111.224444441
+        console.log(a.toFix2(3));
         
     </script>
 </body>
